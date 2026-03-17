@@ -29,7 +29,7 @@ const Sidebar = () => {
                 ];
             case "patient":
                 return [
-                    { path: "/patient", name: "Dashboard" },
+                    { path: "/patient", name: "Book Appointment" },
                     { path: "/patient/appointments", name: "My Appointments" },
                     { path: "/patient/prescriptions", name: "Prescriptions" },
                     { path: "/patient/reports", name: "My Reports" }

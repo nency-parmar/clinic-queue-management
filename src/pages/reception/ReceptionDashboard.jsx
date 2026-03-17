@@ -12,11 +12,17 @@ const ReceptionDashboard = () => {
         return () => clearInterval(interval);
     }, []);
 
+    useEffect(() => {
+        console.log("Queue state updated:", queue);
+    }, [queue]);
+
     const fetchQueue = async () => {
         try {
             const res = await getQueue();
             console.log("Queue response:", res);
-            setQueue(res.data || []);
+            const data = res.data;
+            const queueData = Array.isArray(data) ? data : data ? [data] : [];
+            setQueue(queueData);
         } catch (err) {
             console.error("Failed to fetch queue", err);
             console.log("Error details:", err.response?.data);

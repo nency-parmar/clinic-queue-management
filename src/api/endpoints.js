@@ -9,7 +9,7 @@ export const addAppointments = (data) => API.post("/appointments", data);
 export const getAppointmentsId = (id) => API.get(`/appointments/${id}`);
 
 // Queue
-export const getQueue = () => API.get("/queue");
+export const getQueue = (date = '2026-03-17') => API.get(`/queue?date=${date}`);
 export const getQueueId = (id, data) => API.patch(`/queue/${id}`, data);
 
 // Doctor

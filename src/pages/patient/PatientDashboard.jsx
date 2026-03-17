@@ -1,8 +1,32 @@
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getAppointments, addAppointments, getPrescriptions, getReports } from "../../api/endpoints";
 
 const PatientDashboard = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
+
     const [activeTab, setActiveTab] = useState("appointments");
+
+    useEffect(() => {
+        if (location.pathname.includes("/patient/appointments")) {
+            setActiveTab("appointments");
+        } else if (location.pathname.includes("/patient/prescriptions")) {
+            setActiveTab("prescriptions");
+        } else if (location.pathname.includes("/patient/reports")) {
+            setActiveTab("reports");
+        } else {
+            setActiveTab("book");
+        }
+    }, [location.pathname]);
+
+    const handleTabChange = (tab) => {
+        setActiveTab(tab);
+        if (tab === "appointments") navigate("/patient/appointments");
+        else if (tab === "prescriptions") navigate("/patient/prescriptions");
+        else if (tab === "reports") navigate("/patient/reports");
+        else navigate("/patient");
+    };
 
     const [appointments, setAppointments] = useState([]);
     const [prescriptions, setPrescriptions] = useState([]);
@@ -87,7 +111,7 @@ const PatientDashboard = () => {
             alert("Appointment successfully booked!");
             setSelectedDate("");
             setSelectedSlot("");
-            setActiveTab("appointments");
+            handleTabChange("appointments");
             fetchData();
         } catch (err) {
             console.error("Booking failed", err);
@@ -114,7 +138,7 @@ const PatientDashboard = () => {
                 <li className="nav-item">
                     <button
                         className={`nav-link fw-medium bg-transparent border-0 ${activeTab === "appointments" ? "active border-bottom border-primary border-3 text-primary" : "text-muted"}`}
-                        onClick={() => setActiveTab("appointments")}
+                        onClick={() => handleTabChange("appointments")}
                     >
                         My Appointments
                     </button>
@@ -122,7 +146,7 @@ const PatientDashboard = () => {
                 <li className="nav-item">
                     <button
                         className={`nav-link fw-medium bg-transparent border-0 ${activeTab === "book" ? "active border-bottom border-primary border-3 text-primary" : "text-muted"}`}
-                        onClick={() => setActiveTab("book")}
+                        onClick={() => handleTabChange("book")}
                     >
                         Book Appointment
                     </button>
@@ -130,7 +154,7 @@ const PatientDashboard = () => {
                 <li className="nav-item">
                     <button
                         className={`nav-link fw-medium bg-transparent border-0 ${activeTab === "prescriptions" ? "active border-bottom border-primary border-3 text-primary" : "text-muted"}`}
-                        onClick={() => setActiveTab("prescriptions")}
+                        onClick={() => handleTabChange("prescriptions")}
                     >
                         Prescriptions
                     </button>
@@ -138,7 +162,7 @@ const PatientDashboard = () => {
                 <li className="nav-item">
                     <button
                         className={`nav-link fw-medium bg-transparent border-0 ${activeTab === "reports" ? "active border-bottom border-primary border-3 text-primary" : "text-muted"}`}
-                        onClick={() => setActiveTab("reports")}
+                        onClick={() => handleTabChange("reports")}
                     >
                         Lab Reports
                     </button>
@@ -154,14 +178,13 @@ const PatientDashboard = () => {
                             {appointments.length === 0 ? (
                                 <div className="text-center p-5 bg-light rounded text-muted">
                                     <p className="mb-3">You have no scheduled appointments.</p>
-                                    <button onClick={() => setActiveTab("book")} className="btn btn-primary shadow-sm">Book One Now</button>
+                                    <button onClick={() => handleTabChange("book")} className="btn btn-primary shadow-sm">Book One Now</button>
                                 </div>
                             ) : (
                                 <div className="table-responsive">
                                     <table className="table table-hover table-bordered align-middle mb-0">
                                         <thead className="table-light">
                                             <tr>
-                                                <th>Doctor</th>
                                                 <th>Date</th>
                                                 <th>Time Slot</th>
                                                 <th>Status</th>
@@ -170,7 +193,6 @@ const PatientDashboard = () => {
                                         <tbody>
                                             {appointments.map((app) => (
                                                 <tr key={app.id}>
-                                                    <td className="fw-medium text-dark">{app.Doctor?.name || app.doctorName || `Doctor #${app.doctorId}`}</td>
                                                     <td>{app.appointmentDate?.split('T')[0] || app.date}</td>
                                                     <td className="text-primary fw-medium">{app.timeSlot || app.time || "Scheduled"}</td>
                                                     <td>

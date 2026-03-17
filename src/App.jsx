@@ -4,6 +4,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import PatientDashboard from "./pages/patient/PatientDashboard";
 import DoctorDashboard from "./pages/doctor/DoctorDashboard";
 import ReceptionDashboard from "./pages/reception/ReceptionDashboard.jsx";
+import TvDisplay from "./pages/reception/TvDisplay.jsx";
 
 import DashboardLayout from "./components/DashboardLayout";
 
@@ -25,6 +26,7 @@ function App() {
 
           <Route path="/reception" element={<ReceptionDashboard />} />
           <Route path="/reception/*" element={<ReceptionDashboard />} />
+          <Route path="/reception/tv" element={<TvDisplay />} />
         </Route>
       </Routes>
     </BrowserRouter>
