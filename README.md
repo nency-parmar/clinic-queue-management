@@ -1,16 +1,151 @@
-# React + Vite
+# 🏥 Clinic Queue Management System (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern **Clinic Queue Management System (CMS)** frontend built using **Vite + React + Bootstrap**, designed to manage clinic operations efficiently with multiple user roles.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Overview
 
-## React Compiler
+This project is a frontend application for the **Clinic Queue Management API**.  
+It supports multiple clinics, where each clinic operates independently with its own:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Admin
+- Doctors
+- Receptionists
+- Patients
 
-## Expanding the ESLint configuration
+All data is securely scoped per clinic.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tech Stack
+
+- ⚛️ React (Vite)
+- 🎨 Bootstrap (UI Styling)
+- 🔗 Axios (API integration)
+- 🌐 REST API (Backend)
+
+---
+
+## 🔐 Authentication
+
+- JWT-based authentication
+- Token stored in `localStorage`
+- Role-based routing after login
+
+---
+
+## 👥 User Roles & Features
+
+### 🧑‍💼 Admin Dashboard
+- View clinic information
+- Manage users:
+  - Add user
+  - Update user
+  - Delete user
+- Role management:
+  - `admin`
+  - `doctor`
+  - `receptionist`
+  - `patient`
+
+---
+
+### 🧑‍⚕️ Doctor Dashboard
+- View patient queue
+- Add prescriptions
+- Add medicines
+- Upload reports
+
+---
+
+### 🧑‍💻 Receptionist Dashboard
+- Manage patient queue
+- Update queue status:
+  - Waiting
+  - In Progress
+  - Completed
+- Queue display for TV screen
+
+---
+
+### 👤 Patient Dashboard
+- Book appointments
+  - Select date
+  - 15-minute time slots
+- View:
+  - My appointments
+  - Prescriptions
+  - Reports
+  - Appointment details
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/nency-parmar/clinic-queue-management.git
+cd <project-folder>
+```
+
+### 2️⃣ Install dependencies
+```bash
+npm install
+```
+
+### 3️⃣ Run the development server
+```bash
+npm run dev
+```
+
+---
+
+## 🎨 UI & Styling
+
+- Built using **Bootstrap 5**
+
+---
+
+## 🔗 API Configuration
+
+All API requests are handled using Axios with JWT authentication.
+
+---
+
+## 📌 Key API Modules
+
+- Authentication → `/auth/login`
+- Appointments → `/appointments`
+- Queue → `/queue`
+- Users → `/admin/users`
+- Prescriptions → `/prescription`
+- Reports → `/reports`
+
+---
+
+## 🧪 Development Notes
+
+- Ensure valid JWT token before accessing protected routes
+- Role-based redirection implemented after login
+- API errors handled using Axios
+
+---
+
+## 🎯 Future Improvements
+
+- Toast notifications (success/error)
+- Better UI with modals & tables
+- Real-time queue updates
+
+---
+
+## 👨‍💻 Author
+
+**Parmar Nency**
+
+---
+
+## 📄 License
+
+This project is for educational purposes.
